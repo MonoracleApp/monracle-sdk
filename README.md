@@ -189,9 +189,8 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## =� Support
 
-- **Discord:** [discord.gg/monoracle](https://discord.gg/monoracle)
 - **Twitter:** [@monoracleweb3](https://x.com/monoracleweb3)
 - **Documentation:** [monoracle.xyz/docs](https://monoracle.xyz/docs)
 
 
-Made with d by [Monoracle Labs](https://monoracle.xyz)
+Made with ❤️ by [Monoracle Labs](https://monoracle.xyz)
