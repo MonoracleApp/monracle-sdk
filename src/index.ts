@@ -5,25 +5,16 @@
 import { ethers, Contract } from 'ethers';
 import MonoracleArtifact from './abis/Monoracle.json';
 
-export interface MonoracleData {
-  creatorWallet: string;
-  data: any;
-  apiUrl: string;
-  apiHeaders: string;
-  apiParameters: string;
-  lastUpdateTime: bigint;
-}
-
 /**
  * Fetch all data from a Monoracle contract
  * @param contractAddress - Contract address
  * @param rpcUrl - RPC URL (default: https://testnet-rpc.monad.xyz/)
  * @returns All contract data
  */
-export async function getMonoracleData(
+export async function getMonoracleData<T>(
   contractAddress: string,
   rpcUrl: string = 'https://testnet-rpc.monad.xyz/'
-): Promise<MonoracleData> {
+): Promise<MonoracleData<T>> {
   const provider = new ethers.JsonRpcProvider(rpcUrl);
   const contract = new Contract(contractAddress, MonoracleArtifact.abi, provider);
 

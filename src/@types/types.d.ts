@@ -1,6 +1,6 @@
-interface MonoracleData {
+interface MonoracleData<T = any> {
   creatorWallet: string;
-  data: string;
+  data: T;
   apiUrl: string;
   apiHeaders: string;
   apiParameters: string;
