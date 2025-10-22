@@ -1,17 +1,55 @@
 /**
  * Monoracle - Get your own data from chain
- * @packageDocumentation
  */
 
-export const version = '1.0.0';
+import { ethers, Contract } from 'ethers';
+import MonoracleArtifact from './abis/Monoracle.json';
 
-/**
- * Example function
- * @param message - The message to display
- * @returns The formatted message
- */
-export function hello(message: string): string {
-  return `Monoracle says: ${message}`;
+export interface MonoracleData {
+  creatorWallet: string;
+  data: any;
+  apiUrl: string;
+  apiHeaders: string;
+  apiParameters: string;
+  lastUpdateTime: bigint;
 }
 
-console.log(hello('adfas'))
+/**
+ * Fetch all data from a Monoracle contract
+ * @param contractAddress - Contract address
+ * @param rpcUrl - RPC URL (default: https://testnet-rpc.monad.xyz/)
+ * @returns All contract data
+ */
+export async function getMonoracleData(
+  contractAddress: string,
+  rpcUrl: string = 'https://testnet-rpc.monad.xyz/'
+): Promise<MonoracleData> {
+  const provider = new ethers.JsonRpcProvider(rpcUrl);
+  const contract = new Contract(contractAddress, MonoracleArtifact.abi, provider);
+
+  const [creatorWallet, dataRaw, apiUrl, apiHeaders, apiParameters, lastUpdateTime] = await Promise.all([
+    contract.creatorWallet(),
+    contract.getData(),
+    contract.apiUrl(),
+    contract.apiHeaders(),
+    contract.apiParameters(),
+    contract.lastUpdateTime(),
+  ]);
+
+  // Parse data if it's JSON
+  let data: any;
+  try {
+    data = JSON.parse(dataRaw);
+  } catch {
+    data = dataRaw;
+  }
+
+  return {
+    creatorWallet,
+    data,
+    apiUrl,
+    apiHeaders,
+    apiParameters,
+    lastUpdateTime,
+  };
+}
