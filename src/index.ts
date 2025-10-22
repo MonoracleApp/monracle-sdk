@@ -5,6 +5,15 @@
 import { ethers, Contract } from 'ethers';
 import MonoracleArtifact from './abis/Monoracle.json';
 
+export interface MonoracleData<T = any> {
+  creatorWallet: string;
+  data: T;
+  apiUrl: string;
+  apiHeaders: string;
+  apiParameters: string;
+  lastUpdateTime: bigint;
+}
+
 /**
  * Fetch all data from a Monoracle contract
  * @param contractAddress - Contract address

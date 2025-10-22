@@ -11,4 +11,5 @@ interface ResponseProps {
 (async() => {
     const response = await getMonoracleData<ResponseProps[]>(CONTRACT_ADDRESS)
     console.log(response)
+    console.log(response.data[0].title)
 })()
